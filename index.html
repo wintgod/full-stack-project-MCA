@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Responsive Image Gallery</title>
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="style.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+  <script src="index.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js" integrity="sha512-CNgIRecGo7nphbeZ04Sc13ka07paqdeTu0WR1IM4kNcpmBAUSHSQX0FslNhTDadL4O5SAGapGt4FodqL8My0mA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <style>
+    .image-container {
+      position: relative;
+      overflow: hidden;
+    }
+    .image-container img {
+      width: 100%;
+      height: auto;
+      transition: transform 0.3s ease;
+    }
+    .image-container:hover img {
+      transform: scale(1.1);
+    }
+    .dropdown-badge {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      display: none;
+    }
+    .image-container:hover .dropdown-badge {
+      display: block;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container mt-5">
+  <div class="row" id="row">
+    <div class="col-md-4 mb-4" id="col1">
+      <div class="image-container"  id="drop-menu">
+        <img src="img1.jpg" alt="Image 1" id="img1">
+        <div class="dropdown-badge">
+          <div class="dropdown">
+            <button class="btn dropdown" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="fa fa-ellipsis-v" style="color:white;font-size: 28px;"></i>
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
+              <a class="dropdown-item" onclick="averageColor(document.getElementById('img1'), document.getElementById('col1'))">Check RGB</a>
+              <a class="dropdown-item" id="changeColor" onmouseenter="showDropdown()">Change Color</a>
+              <ul class="dropdown-menu dropdown-submenu" id="submenu-1" onmouseleave="hideDropdown()">
+                <li>
+                  <a class="dropdown-item" onclick="changeColor(document.getElementById('img1'), 'red')">To Red</a>
+                </li>
+                <li>
+                  <a class="dropdown-item" onclick="changeColor(document.getElementById('img1'), 'green')">To Green</a>
+                </li>
+                <li>
+                  <a class="dropdown-item" onclick="changeColor(document.getElementById('img1'), 'blue')">To Blue</a>
+                </li>
+              </ul>
+              <a class="dropdown-item" onclick="duplicateImage(document.getElementById('col1'))">Duplicate</a>
+              <a class="dropdown-item" onclick="increaseBrightness('img1')">Increase Brightness (10%)</a>
+              <a class="dropdown-item" onclick="reduceResolution('img1')">Reduce Resolution</a>
+              <a class="dropdown-item" onclick="createAvatar('img1', 'col1')">Create Avatar</a>
+              <a class="dropdown-item" onclick="toGrayScale('img1')">Convert to Greyscale</a>
+              <a class="dropdown-item" onclick="generateQR('img1')">Generate QR</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4 mb-4" id="col2">
+      <div class="image-container">
+        <img src="img2.jpg" alt="Image 2" id="img2">
+        <div class="dropdown-badge">
+          <div class="dropdown">
+            <button class="btn dropdown" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="fa fa-ellipsis-v" style="color:white;font-size: 28px;"></i>
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
+              <a class="dropdown-item" onclick="averageColor(document.getElementById('img2'), document.getElementById('col2'))">Check RGB</a>
+              <a class="dropdown-item" id="changeColor" onmouseenter="showDropdown()"on>Change Color</a>
+              <ul class="dropdown-menu dropdown-submenu" id="submenu-2" onmouseleave="hideDropdown()">
+                <li>
+                  <a class="dropdown-item" onclick="changeColor(document.getElementById('img2'), 'red')">To Red</a>
+                </li>
+                <li>
+                  <a class="dropdown-item" onclick="changeColor(document.getElementById('img2'), 'green')">To Green</a>
+                </li>
+                <li>
+                  <a class="dropdown-item" onclick="changeColor(document.getElementById('img2'), 'blue')">To Blue</a>
+                </li>
+              </ul>
+              <a class="dropdown-item" onclick="duplicateImage(document.getElementById('col2'))">Duplicate</a>
+              <a class="dropdown-item" onclick="increaseBrightness('img2')">Increase Brightness (10%)</a>
+              <a class="dropdown-item" onclick="reduceResolution('img2')">Reduce Resolution</a>
+              <a class="dropdown-item" onclick="createAvatar('img2', 'col2')">Create Avatar</a>
+              <a class="dropdown-item" onclick="toGrayScale('img2')">Convert to Greyscale</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4 mb-4" id="col3">
+        <div class="image-container">
+          <img src="img3.jpg" alt="Image 3" id="img3">
+          <div class="dropdown-badge">
+            <div class="dropdown">
+                <button class="btn dropdown" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="fa fa-ellipsis-v" style="color:white;font-size: 28px;"></i>
+                </button>
+              <div class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
+                <a class="dropdown-item" onclick="averageColor(document.getElementById('img3'), document.getElementById('col3'))">Check RGB</a>
+                <a class="dropdown-item" id="changeColor" onmouseover="showDropdown()"on>Change Color</a>
+              <ul class="dropdown-menu dropdown-submenu" id="submenu-3" onmouseleave="hideDropdown()">
+                <li>
+                  <a class="dropdown-item" onclick="changeColor(document.getElementById('img3'), 'red')">To Red</a>
+                </li>
+                <li>
+                  <a class="dropdown-item" onclick="changeColor(document.getElementById('img3'), 'green')">To Green</a>
+                </li>
+                <li>
+                  <a class="dropdown-item" onclick="changeColor(document.getElementById('img3'), 'blue')">To Blue</a>
+                </li>
+              </ul>
+              <a class="dropdown-item" onclick="duplicateImage(document.getElementById('col3'))">Duplicate</a>
+              <a class="dropdown-item" onclick="increaseBrightness('img3')">Increase Brightness (10%)</a>
+              <a class="dropdown-item" onclick="reduceResolution('img3')">Reduce Resolution</a>
+              <a class="dropdown-item" onclick="createAvatar('img3', 'col3')">Create Avatar</a>
+              <a class="dropdown-item" onclick="toGrayScale('img3')">Convert to Greyscale</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4 mb-4" id="col4">
+        <div class="image-container">
+          <img src="img4.jpg" alt="Image 4" id="img4">
+          <div class="dropdown-badge">
+            <div class="dropdown">
+                <button class="btn dropdown" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="fa fa-ellipsis-v" style="color:white;font-size: 28px;"></i>
+                </button>
+              <div class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
+                <a class="dropdown-item" onclick="averageColor(document.getElementById('img4'), document.getElementById('col4'))">Check RGB</a>
+                <a class="dropdown-item" id="changeColor" onmouseover="showDropdown()"on>Change Color</a>
+              <ul class="dropdown-menu dropdown-submenu" id="submenu-4" onmouseleave="hideDropdown()">
+                <li>
+                  <a class="dropdown-item" onclick="changeColor(document.getElementById('img4'), 'red')">To Red</a>
+                </li>
+                <li>
+                  <a class="dropdown-item" onclick="changeColor(document.getElementById('img4'), 'green')">To Green</a>
+                </li>
+                <li>
+                  <a class="dropdown-item" onclick="changeColor(document.getElementById('img4'), 'blue')">To Blue</a>
+                </li>
+              </ul>
+              <a class="dropdown-item" onclick="duplicateImage(document.getElementById('col4'))">Duplicate</a>
+              <a class="dropdown-item" onclick="increaseBrightness('img4')">Increase Brightness (10%)</a>
+              <a class="dropdown-item" onclick="reduceResolution('img4')">Reduce Resolution</a>
+              <a class="dropdown-item" onclick="createAvatar('img4', 'col4')">Create Avatar</a>
+              <a class="dropdown-item" onclick="toGrayScale('img4')">Convert to Greyscale</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4 mb-4" id="col5">
+        <div class="image-container">
+          <img src="img5.jpg" alt="Image 5" id="img5">
+          <div class="dropdown-badge">
+            <div class="dropdown">
+                <button class="btn dropdown" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="fa fa-ellipsis-v" style="color:white;font-size: 28px;"></i>
+                </button>
+              <div class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
+                <a class="dropdown-item" onclick="averageColor(document.getElementById('img5'), document.getElementById('col5'))">Check RGB</a>
+                <a class="dropdown-item" id="changeColor" onmouseover="showDropdown()"on>Change Color</a>
+              <ul class="dropdown-menu dropdown-submenu" id="submenu-5" onmouseleave="hideDropdown()">
+                <li>
+                  <a class="dropdown-item" onclick="changeColor(document.getElementById('img5'), 'red')">To Red</a>
+                </li>
+                <li>
+                  <a class="dropdown-item" onclick="changeColor(document.getElementById('img5'), 'green')">To Green</a>
+                </li>
+                <li>
+                  <a class="dropdown-item" onclick="changeColor(document.getElementById('img5'), 'blue')">To Blue</a>
+                </li>
+              </ul>
+              <a class="dropdown-item" onclick="duplicateImage(document.getElementById('col5'))">Duplicate</a>
+              <a class="dropdown-item" onclick="increaseBrightness('img5')">Increase Brightness (10%)</a>
+              <a class="dropdown-item" onclick="reduceResolution('img5')">Reduce Resolution</a>
+              <a class="dropdown-item" onclick="createAvatar('img5', 'col5')">Create Avatar</a>
+              <a class="dropdown-item" onclick="toGrayScale('img5')">Convert to Greyscale</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4 mb-4" id="col6">
+        <div class="image-container">
+          <img src="img6.jpg" alt="Image 6" id="img6">
+          <div class="dropdown-badge">
+            <div class="dropdown">
+                <button class="btn dropdown" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="fa fa-ellipsis-v" style="color:white;font-size: 28px;"></i>
+                </button>
+              <div class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
+                <a class="dropdown-item" onclick="averageColor(document.getElementById('img6'), document.getElementById('col6'))">Check RGB</a>
+                <a class="dropdown-item" id="changeColor" onmouseover="showDropdown()"on>Change Color</a>
+              <ul class="dropdown-menu dropdown-submenu" id="submenu-6" onmouseleave="hideDropdown()">
+                <li>
+                  <a class="dropdown-item" onclick="changeColor(document.getElementById('img6'), 'red')">To Red</a>
+                </li>
+                <li>
+                  <a class="dropdown-item" onclick="changeColor(document.getElementById('img6'), 'green')">To Green</a>
+                </li>
+                <li>
+                  <a class="dropdown-item" onclick="changeColor(document.getElementById('img6'), 'blue')">To Blue</a>
+                </li>
+              </ul>
+              <a class="dropdown-item" onclick="duplicateImage(document.getElementById('col6'))">Duplicate</a>
+              <a class="dropdown-item" onclick="increaseBrightness('img6')">Increase Brightness (10%)</a>
+              <a class="dropdown-item" onclick="reduceResolution('img6')">Reduce Resolution</a>
+              <a class="dropdown-item" onclick="createAvatar('img6', 'col6')">Create Avatar</a>
+              <a class="dropdown-item" onclick="toGrayScale('img6')">Convert to Greyscale</a>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    <!-- Add more image containers here -->
+  </div>
+</div>
+  
+</body>
+</html>
